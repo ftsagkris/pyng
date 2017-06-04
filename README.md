@@ -18,7 +18,7 @@ Now visit `https://api.telegram.org/bot<your-bot-token>/getUpdates`. Try to loca
 
 I'll refer to that number as `<your-chat-id>`.
 
-Now open `pyng.py` with your favorite editor and replace the string after these constants:
+Now open `pyng.py` with your favorite editor and replace these constants with your info:
 
 *   `SITE = '<url-of-the-site-you-want-to-monitor>'`
 *   `TOKEN = '<your-bot-token>'`
