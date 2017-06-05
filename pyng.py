@@ -24,10 +24,10 @@ def load_prv_state():
     except IOError:
         print('State file not found. Creating new.')
         # First time running. If site is down inform user.
-        state = ping()
+        state = ping(SITE)
         store_new_state(state)
         if not state:
-            send_message(DOWN)
+            send_message(DOWN, CHAT_ID)
     return state
     
 
@@ -35,7 +35,7 @@ def store_new_state(state):
     with open(os.path.join(sys.path[0], 'state.txt'), 'w') as state_file:
         state_file.write(str(state))
 
-def ping(site=SITE):
+def ping(site):
     try:
         requests.get(site).status_code
     except requests.exceptions.ConnectionError:
@@ -44,16 +44,16 @@ def ping(site=SITE):
         state = True
     return state
 
-def send_message(text, chat_id=CHAT_ID):
+def send_message(text, chat_id):
     msg_params = {'text': text, 'chat_id': chat_id}
     requests.get(URL, params=msg_params)
 
 
 if __name__ == '__main__':
-    state = ping()
+    state = ping(SITE)
     if state != load_prv_state():
         store_new_state(state)
         if state:
-            send_message(UP)
+            send_message(UP, CHAT_ID)
         else:
-            send_message(DOWN)
+            send_message(DOWN, CHAT_ID)
