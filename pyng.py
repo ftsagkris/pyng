@@ -10,6 +10,8 @@ SITE = '<your-site>'
 TOKEN = '<your-bot-token>'
 URL = 'https://api.telegram.org/bot{}/sendMessage'.format(TOKEN)
 CHAT_ID = '<your-chat-id>'
+DOWN = 'Site is down :('
+UP = 'Site is up again! :D'
 
 def load_prv_state():
     try:
@@ -24,7 +26,7 @@ def load_prv_state():
         state = ping()
         store_new_state(state)
         if not state:
-            send_message('Site is down :(')
+            send_message(DOWN)
     return state
     
 
@@ -50,9 +52,9 @@ def main():
     if state != load_prv_state():
         store_new_state(state)
         if state:
-            send_message('Site is up again! :D')
+            send_message(UP)
         else:
-            send_message('Site is down :(')
+            send_message(DOWN)
 
 
 if __name__ == '__main__':
